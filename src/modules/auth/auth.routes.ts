@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authController } from "./auth.controller.js";
 import { inputValidator } from "../../middlewares/zodValidator.middleware.js";
-import { registerSchema } from "./auth.schema.js";
+import { loginSchema, registerSchema } from "./auth.schema.js";
 
 class AuthRouter {
   private router: Router;
@@ -15,6 +15,12 @@ class AuthRouter {
       "/register",
       inputValidator.schema(registerSchema, "body"),
       authController.register,
+    );
+
+    this.router.post(
+      "/login",
+      inputValidator.schema(loginSchema, "body"),
+      authController.login,
     );
   }
 
