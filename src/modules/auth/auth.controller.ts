@@ -1,16 +1,27 @@
 import { type Response, type Request, type NextFunction } from "express";
-import type { IRegisterParams } from "./auth.interface.js";
+import type { ILoginParams, IRegisterParams } from "./auth.interface.js";
 import { authService } from "./auth.service.js";
 
 class AuthController {
   public register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const payload = req.body as IRegisterParams;
-      const response = await authService.userRegister(payload);
+      const data = await authService.Register(payload);
       res.status(201).json({
         message: "User registered successfully",
-        data: response,
+        data,
       });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const payload = req.body as ILoginParams;
+      const data = await authService.Login(payload);
+
+      res.status(201).json({ message: "Login Success!", data });
     } catch (error) {
       next(error);
     }

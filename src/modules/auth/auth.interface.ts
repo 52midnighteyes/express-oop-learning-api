@@ -7,3 +7,9 @@ export interface IRegisterParams {
   password: string;
   role: UserRole;
 }
+
+export interface ILoginParams {
+  email: string;
+  password: string;
+  role: UserRole;
+}
