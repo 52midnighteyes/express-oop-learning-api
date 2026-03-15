@@ -10,13 +10,24 @@ class BlogRepo {
 
   public findBlogByTitle = async (title: string) => {
     try {
-      const blog = await this.prisma.blog.findUnique({
+      return await this.prisma.blog.findUnique({
         where: {
           title,
         },
       });
+    } catch (error) {
+      console.error("message:", error);
+      throw error;
+    }
+  };
 
-      return blog;
+  public findBlogById = async (id: string) => {
+    try {
+      return await this.prisma.blog.findUnique({
+        where: {
+          id,
+        },
+      });
     } catch (error) {
       console.error("message:", error);
       throw error;
@@ -25,13 +36,11 @@ class BlogRepo {
 
   public createBlog = async (params: ICreateBlogDbParams) => {
     try {
-      const blog = await this.prisma.blog.create({
+      return await this.prisma.blog.create({
         data: {
           ...params,
         },
       });
-
-      return blog;
     } catch (error) {
       console.error("message:", error);
       throw error;

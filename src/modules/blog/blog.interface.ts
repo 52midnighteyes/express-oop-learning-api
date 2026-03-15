@@ -10,6 +10,13 @@ export interface ICreateBlogParams {
   category: BlogCategory;
 }
 
+export interface IUpdateBlogParams {
+  file?: Express.Multer.File;
+  title: string;
+  content: string;
+  isPublished: boolean;
+}
+
 //--- DB params
 
 export interface ICreateBlogDbParams extends Omit<ICreateBlogParams, "file"> {

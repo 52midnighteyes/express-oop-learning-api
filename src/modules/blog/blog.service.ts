@@ -1,4 +1,4 @@
-import type { ICreateBlogParams } from "./blog.interface.js";
+import type { ICreateBlogParams, IUpdateBlogParams } from "./blog.interface.js";
 import { blogRepo } from "./blog.repository.js";
 import { AppError } from "../../class/appError.js";
 import { StringConverter } from "../../helper/stringConverter.js";
@@ -33,6 +33,11 @@ class BlogService {
       console.error("message:", error);
       throw error;
     }
+  };
+
+  public update = async (params: IUpdateBlogParams) => {
+    try {
+    } catch (error) {}
   };
 }
 
