@@ -6,14 +6,16 @@ import { cloudinaryConfig } from "../../libs/cloudinary/cloudinary.lib.js";
 
 class BlogService {
   public create = async (params: ICreateBlogParams) => {
+    let publicId;
     try {
       const isExists = await blogRepo.findBlogByTitle(params.title);
       if (isExists) throw new AppError(409, "Blog title already exists");
 
-      const { secure_url } = await cloudinaryConfig.cloudinaryUpload(
+      const { secure_url, public_id } = await cloudinaryConfig.upload(
         params.file,
         params.authorId,
       );
+      publicId = public_id;
 
       const { file, ...rest } = params;
       const blog = {
@@ -24,8 +26,10 @@ class BlogService {
       };
 
       const data = await blogRepo.createBlog(blog);
+
       return data;
     } catch (error) {
+      await cloudinaryConfig.delete(publicId!);
       console.error("message:", error);
       throw error;
     }
