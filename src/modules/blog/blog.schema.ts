@@ -49,7 +49,7 @@ export const getAllBlogsSchema = z.object({
     .int()
     .min(1, "Limit must be at least 1")
     .max(100, "Limit cannot be more than 100")
-    .default(100),
+    .default(10),
 
   sortBy: z
     .enum(["createdAt", "title"], {

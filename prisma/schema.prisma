@@ -43,7 +43,7 @@ model User {
 model Blog {
   id String @id @default(uuid())
   image String
-  imagePublicId String
+  imagePublicId String //forgot to add @map("image_public_id") in the previous version(will fix before production since there's already data in the database)
   title String @unique
   slug String @unique
   excerpt String
@@ -119,3 +119,35 @@ model Staff {
   updatedAt DateTime @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 }
+
+enum matchStatus {
+  SCHEDULED
+  ONGOING
+  COMPLETED
+  POSTPONED
+  CANCELED
+}
+
+enum MatchType {
+  HOME
+  AWAY
+}
+
+model Match {
+  id String @id @default(uuid())
+  opponent String
+  matchDate DateTime @map("match_date")
+  matchType MatchType @map("match_type")
+  status matchStatus
+  opponentLogo String @map("opponent_logo")
+  opponentLogoPublicId String @map("opponent_logo_public_id")
+  location String
+  season String
+  opponentScore Int? @map("opponent_score")
+  teamScore Int? @map("team_score")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+}
+
+

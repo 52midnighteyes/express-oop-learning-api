@@ -63,9 +63,11 @@ class BlogRepo {
         id: true,
         title: true,
         slug: true,
+        excerpt: true,
+        image: true,
         category: true,
-        isPublished: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
   };
