@@ -24,6 +24,10 @@ export const updateBlogParamSchema = z.object({
   id: z.uuid().nonempty("Blog ID is required"),
 });
 
+export const getBlogBySlugSchema = z.object({
+  slug: z.string().nonempty("Blog slug is required").trim(),
+});
+
 export const getBlogByIdSchema = z.object({
   id: z.uuid().nonempty("Blog ID is required"),
 });
@@ -49,7 +53,7 @@ export const getAllBlogsSchema = z.object({
     .int()
     .min(1, "Limit must be at least 1")
     .max(100, "Limit cannot be more than 100")
-    .default(100),
+    .default(10),
 
   sortBy: z
     .enum(["createdAt", "title"], {

@@ -63,9 +63,11 @@ class BlogRepo {
         id: true,
         title: true,
         slug: true,
+        excerpt: true,
+        image: true,
         category: true,
-        isPublished: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
   };
@@ -110,6 +112,22 @@ class BlogRepo {
             firstName: true,
             lastName: true,
             email: true,
+          },
+        },
+      },
+    });
+  };
+
+  public findBlogBySlug = async (slug: string) => {
+    return await this.prisma.blog.findUnique({
+      where: {
+        slug,
+      },
+      include: {
+        author: {
+          select: {
+            firstName: true,
+            lastName: true,
           },
         },
       },

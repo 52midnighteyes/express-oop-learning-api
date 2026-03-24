@@ -8,6 +8,7 @@ import { blogRoutes } from "./modules/blog/blog.routes.js";
 import helmet from "helmet";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { matchRouter } from "./modules/match/match.routes.js";
 
 class App {
   app: Application;
@@ -57,6 +58,7 @@ class App {
 
     this.app.use("/api/auth", authRoutes);
     this.app.use("/api/blogs", blogRoutes);
+    this.app.use("/api/matches", matchRouter);
   }
 
   private initializeErrorHandlers(): void {

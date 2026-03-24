@@ -87,9 +87,9 @@ class BlogService {
     }
   };
 
-  public getById = async (id: string) => {
+  public getBlogBySlug = async (slug: string) => {
     try {
-      const data = await blogRepo.findBlogById(id);
+      const data = await blogRepo.findBlogBySlug(slug);
       if (!data) throw new AppError(404, "Blog not found");
 
       if (!data.isPublished || data.deletedAt !== null)
@@ -108,7 +108,7 @@ class BlogService {
         category: data.category,
       };
 
-      return { data: safeData };
+      return safeData;
     } catch (error) {
       console.error("message:", error);
       throw error;
