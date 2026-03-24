@@ -108,7 +108,7 @@ class BlogService {
         category: data.category,
       };
 
-      return { data: safeData };
+      return safeData;
     } catch (error) {
       console.error("message:", error);
       throw error;
